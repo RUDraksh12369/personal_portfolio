@@ -1,0 +1,24 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual Environments
+venv/
+env/
+.venv/
+
+# Flask / local settings
+instance/
+*.sqlite3
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor folders
+.vscode/
+.idea/
