@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rudraksh Raval | About Me</title>
+  <meta name="description" content="About Rudraksh Raval - Full-Stack Developer, AI & Game Developer">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="logo">Rudraksh.dev</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/projects">Projects</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      <button class="mobile-menu-btn">☰</button>
+    </div>
+    <div class="mobile-menu">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/projects">Projects</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero / About Banner -->
+  <section class="hero">
+    <div class="hero-content fade-in-up">
+      <h1>About <span class="highlight">Rudraksh Raval</span></h1>
+      <p class="subtitle">Full-Stack Developer & AI/Game Developer from India 🚀</p>
+      <p class="description">
+        I am a passionate developer with experience in Python, Flask, AI/ML, and Game Development (Unity & Pygame). 
+        I love building intelligent applications, games, and web solutions that solve real-world problems.
+      </p>
+      <a href="/projects" class="btn">Explore My Work</a>
+    </div>
+  </section>
+
+  <!-- Experience & Achievements Section -->
+  <section class="experience">
+    <h2>Experience & Achievements</h2>
+    <div class="experience-grid">
+      <div class="experience-item">
+        <h3>7+ Projects Completed</h3>
+        <p>Developed applications ranging from smart assistants to interactive games and AI projects.</p>
+      </div>
+      <div class="experience-item">
+        <h3>3+ Years of Experience</h3>
+        <p>Hands-on experience in Python, Flask, AI/ML, and game development using Unity and Pygame.</p>
+      </div>
+      <div class="experience-item">
+        <h3>5+ Core Skills</h3>
+        <p>Expertise in Python, Web Development, AI/ML, Game Development, and Software Engineering fundamentals.</p>
+      </div>
+      <div class="experience-item">
+        <h3>Continuous Learning</h3>
+        <p>Always exploring new technologies, frameworks, and concepts to stay at the forefront of innovation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="skills">
+    <h2>Technical Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-category">
+        <h3>🐍 Programming</h3>
+        <ul>
+          <li>Python (Advanced)</li>
+          <li>JavaScript (Intermediate)</li>
+          <li>C# (Unity)</li>
+          <li>HTML5 & CSS3</li>
+          <li>SQL Basics</li>
+        </ul>
+      </div>
+      <div class="skill-category">
+        <h3>🤖 AI & ML</h3>
+        <ul>
+          <li>Natural Language Processing</li>
+          <li>Spam Detection AI</li>
+          <li>Stock Prediction Models</li>
+          <li>Data Analysis & Visualization</li>
+        </ul>
+      </div>
+      <div class="skill-category">
+        <h3>🌐 Web Development</h3>
+        <ul>
+          <li>Flask Framework</li>
+          <li>Responsive Web Design</li>
+          <li>REST API Development</li>
+          <li>Database Management</li>
+        </ul>
+      </div>
+      <div class="skill-category">
+        <h3>🎮 Game Development</h3>
+        <ul>
+          <li>Unity Engine</li>
+          <li>Pygame Library</li>
+          <li>Game Physics</li>
+          <li>UI/UX Design</li>
+          <li>2D & Basic 3D Games</li>
+        </ul>
+      </div>
+      <div class="skill-category">
+        <h3>💡 CS Fundamentals</h3>
+        <ul>
+          <li>Data Structures & Algorithms</li>
+          <li>Object-Oriented Programming</li>
+          <li>System Design & Memory Management</li>
+          <li>Network Programming Basics</li>
+          <li>Virtual Environments & Modular Coding</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="contact">
+    <div class="contact-content">
+      <h2>Let's Connect!</h2>
+      <p>If you have an idea, a project, or just want to collaborate, feel free to reach out.</p>
+      <div style="margin-top: 2rem;">
+        <a href="/contact" class="btn btn-primary">Get In Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="mailto:rudraksh@example.com">Email</a>
+        <a href="https://github.com/your-username" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/your-profile" target="_blank">LinkedIn</a>
+        <a href="/projects">Projects</a>
+      </div>
+      <p>&copy; 2025 Rudraksh Raval | Crafted with ❤️ and Flask</p>
+    </div>
+  </footer>
+
+  <!-- Mobile Menu Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      
+      mobileMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.toggle('active');
+      });
+
+      document.querySelectorAll('.mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('active');
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

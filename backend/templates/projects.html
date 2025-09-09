@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Rudraksh Raval Portfolio</title>
+  <meta name="description" content="Explore my portfolio of projects including AI/ML applications, web development, and game development projects.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .projects-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+      margin-top: 70px;
+    }
+    
+    .projects-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .projects-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .projects-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    
+    .projects-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+      padding: 2rem;
+      background: var(--bg-secondary);
+      border-radius: 1rem;
+    }
+    
+    .stat-box {
+      text-align: center;
+      padding: 1rem;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    
+    .filter-tab {
+      background: transparent;
+      border: 2px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    
+    .filter-tab.active,
+    .filter-tab:hover {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+    
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 2.5rem;
+    }
+    
+    .project-card {
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s ease;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    .project-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .project-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+    
+    .project-card:hover .project-image::before {
+      transform: translateX(100%);
+    }
+    
+    .project-status {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255,255,255,0.9);
+      color: var(--primary-color);
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .project-content {
+      padding: 2rem;
+    }
+    
+    .project-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+    
+    .project-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .tech-tag {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary-color);
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .project-link {
+      flex: 1;
+      text-align: center;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .project-link.primary {
+      background: var(--primary-color);
+      color: white;
+    }
+    
+    .project-link.primary:hover {
+      background: var(--primary-dark);
+    }
+    
+    .project-link.secondary {
+      background: transparent;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+    }
+    
+    .project-link.secondary:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+    
+    .load-more {
+      text-align: center;
+      margin-top: 3rem;
+    }
+    
+    @media (max-width: 768px) {
+      .projects-title {
+        font-size: 2rem;
+      }
+      
+      .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .projects-content {
+        padding: 2rem 1rem;
+      }
+      
+      .filter-tabs {
+        gap: 0.5rem;
+      }
+      
+      .filter-tab {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="logo">Rudraksh.dev</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/projects">Projects</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      <button class="mobile-menu-btn">☰</button>
+    </div>
+    <div class="mobile-menu">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/projects">Projects</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Projects Header -->
+  <section class="projects-header">
+    <div class="hero-content">
+      <h1 class="projects-title">My Projects</h1>
+      <p class="projects-subtitle">
+        A collection of projects showcasing my skills in AI/ML, web development, 
+        game development, and more. Each project represents a unique challenge and learning experience.
+      </p>
+    </div>
+  </section>
+
+  <!-- Projects Content -->
+  <div class="projects-content">
+    <!-- Projects Stats -->
+    <div class="projects-stats">
+      <div class="stat-box">
+        <span class="stat-number">{{ projects|length }}</span>
+        <span class="stat-label">Total Projects</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">5+</span>
+        <span class="stat-label">Technologies</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">2+</span>
+        <span class="stat-label">Years Building</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">∞</span>
+        <span class="stat-label">Lines of Code</span>
+      </div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">All Projects</button>
+      <button class="filter-tab" data-filter="ai">AI/ML</button>
+      <button class="filter-tab" data-filter="web">Web Development</button>
+      <button class="filter-tab" data-filter="game">Game Development</button>
+      <button class="filter-tab" data-filter="python">Python</button>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="projects-grid">
+      {% for project in projects %}
+      <div class="project-card" data-categories="
+        {%- if 'AI' in project.title or 'Spam' in project.title or 'Stock' in project.title -%}ai {%- endif -%}
+        {%- if 'Flask' in project.tech_stack or 'Web' in project.title -%}web {%- endif -%}
+        {%- if 'Game' in project.title or 'Chess' in project.title or 'Snake' in project.title or 'Flappy' in project.title -%}game {%- endif -%}
+        {%- if 'Python' in project.tech_stack -%}python {%- endif -%}
+      " onclick="window.location.href='/project/{{ project.id }}'">
+        <div class="project-image">
+          {% if project.id == 1 %}🎙️
+          {% elif project.id == 2 %}♟️
+          {% elif project.id == 3 %}🎮
+          {% elif project.id == 4 %}🛡️
+          {% elif project.id == 5 %}🐍
+          {% elif project.id == 6 %}🦅
+          {% elif project.id == 7 %}📈
+          {% endif %}
+          <span class="project-status">{{ project.status }}</span>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">{{ project.title }}</h3>
+          <p class="project-description">{{ project.long_desc }}</p>
+          {% if project.tech_stack %}
+          <div class="project-tech">
+            {% for tech in project.tech_stack[:4] %}
+            <span class="tech-tag">{{ tech }}</span>
+            {% endfor %}
+            {% if project.tech_stack|length > 4 %}
+            <span class="tech-tag">+{{ project.tech_stack|length - 4 }} more</span>
+            {% endif %}
+          </div>
+          {% endif %}
+          <div class="project-links">
+            <a href="/project/{{ project.id }}" class="project-link primary" onclick="event.stopPropagation()">
+              View Details
+            </a>
+            {% if project.github %}
+            <a href="{{ project.github }}" class="project-link secondary" target="_blank" onclick="event.stopPropagation()">
+              GitHub
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Load More Section -->
+    <div class="load-more">
+      <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+        Interested in seeing more of my work?
+      </p>
+      <a href="/contact" class="btn btn-primary">Let's Discuss Your Project</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="mailto:rudraksh@example.com">Email</a>
+        <a href="https://github.com/your-username" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/your-profile" target="_blank">LinkedIn</a>
+        <a href="/projects">Projects</a>
+      </div>
+      <p>&copy; 2025 Rudraksh Raval | Crafted with ❤️ and Flask</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile menu functionality
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      
+      mobileMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.toggle('active');
+      });
+      
+      const mobileLinks = document.querySelectorAll('.mobile-menu a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('active');
+        });
+      });
+
+      // Project filtering
+      const filterTabs = document.querySelectorAll('.filter-tab');
+      const projectCards = document.querySelectorAll('.project-card');
+
+      filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          // Remove active class from all tabs
+          filterTabs.forEach(t => t.classList.remove('active'));
+          // Add active class to clicked tab
+          tab.classList.add('active');
+
+          const filter = tab.dataset.filter;
+
+          projectCards.forEach(card => {
+            if (filter === 'all') {
+              card.style.display = 'block';
+              setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+              }, 50);
+            } else {
+              const categories = card.dataset.categories;
+              if (categories.includes(filter)) {
+                card.style.display = 'block';
+                setTimeout(() => {
+                  card.style.opacity = '1';
+                  card.style.transform = 'translateY(0)';
+                }, 50);
+              } else {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                  card.style.display = 'none';
+                }, 300);
+              }
+            }
+          });
+        });
+      });
+
+      // Add smooth animations on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      // Initially hide cards for animation
+      projectCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'all 0.6s ease';
+        card.style.transitionDelay = `${index * 0.1}s`;
+        observer.observe(card);
+      });
+    });
+  </script>
+</body>
+</html>

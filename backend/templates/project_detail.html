@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ project.title }} | Rudraksh Raval Portfolio</title>
+  <meta name="description" content="{{ project.short_desc }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .project-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 8rem 2rem 4rem;
+      margin-top: 70px;
+      text-align: center;
+    }
+    
+    .project-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .project-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+    
+    .project-status {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 500;
+      backdrop-filter: blur(10px);
+    }
+    
+    .project-detail-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    
+    .project-overview {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+    }
+    
+    .project-description {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+    
+    .project-meta {
+      background: var(--bg-secondary);
+      padding: 2rem;
+      border-radius: 1rem;
+      height: fit-content;
+    }
+    
+    .meta-item {
+      margin-bottom: 2rem;
+    }
+    
+    .meta-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .meta-label {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    
+    .project-tech-detail {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .tech-tag-detail {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    
+    .project-links-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .project-link-detail {
+      display: inline-block;
+      background: var(--primary-color);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .project-link-detail:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    .project-link-secondary {
+      background: transparent;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+    }
+    
+    .project-link-secondary:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+    
+    .project-features {
+      margin-bottom: 4rem;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .feature-item {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: var(--shadow-sm);
+      border-left: 4px solid var(--primary-color);
+    }
+    
+    .feature-item h4 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .feature-item p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    
+    .back-to-projects {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 4rem;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .navigation-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 3rem;
+      padding: 2rem;
+      background: var(--bg-secondary);
+      border-radius: 1rem;
+    }
+    
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+      background: rgba(99, 102, 241, 0.1);
+    }
+    
+    @media (max-width: 768px) {
+      .project-title {
+        font-size: 2rem;
+      }
+      
+      .project-overview {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .project-detail-content {
+        padding: 2rem 1rem;
+      }
+      
+      .navigation-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="logo">Rudraksh.dev</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/projects">Projects</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      <button class="mobile-menu-btn">☰</button>
+    </div>
+    <div class="mobile-menu">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/projects">Projects</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Project Header -->
+  <section class="project-header">
+    <div class="hero-content">
+      <h1 class="project-title">{{ project.title }}</h1>
+      <p class="project-subtitle">{{ project.short_desc }}</p>
+      <span class="project-status">{{ project.status }}</span>
+    </div>
+  </section>
+
+  <!-- Project Detail Content -->
+  <div class="project-detail-content">
+    <!-- Project Overview -->
+    <div class="project-overview">
+      <div>
+        <h2>Project Overview</h2>
+        <div class="project-description">
+          <p>{{ project.long_desc }}</p>
+        </div>
+      </div>
+      
+      <div class="project-meta">
+        <div class="meta-item">
+          <span class="meta-label">Status</span>
+          <span>{{ project.status }}</span>
+        </div>
+        
+        {% if project.tech_stack %}
+        <div class="meta-item">
+          <span class="meta-label">Technologies Used</span>
+          <div class="project-tech-detail">
+            {% for tech in project.tech_stack %}
+            <span class="tech-tag-detail">{{ tech }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        
+        <div class="meta-item">
+          <span class="meta-label">Project Links</span>
+          <div class="project-links-detail">
+            {% if project.github %}
+            <a href="{{ project.github }}" class="project-link-detail" target="_blank">
+              View on GitHub
+            </a>
+            {% endif %}
+            {% if project.demo %}
+            <a href="{{ project.demo }}" class="project-link-detail project-link-secondary" target="_blank">
+              Live Demo
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Features -->
+    <section class="project-features">
+      <h2>Key Features</h2>
+      <div class="features-grid">
+        {% if project.id == 1 %}
+        <div class="feature-item">
+          <h4>🎙️ Voice Recognition</h4>
+          <p>Advanced speech-to-text functionality with natural language processing capabilities for seamless voice interactions.</p>
+        </div>
+        <div class="feature-item">
+          <h4>🤖 AI Integration</h4>
+          <p>Smart response system powered by AI algorithms to understand and respond to complex queries intelligently.</p>
+        </div>
+        <div class="feature-item">
+          <h4>⏰ Task Management</h4>
+          <p>Built-in reminder system and task scheduling with notification capabilities for enhanced productivity.</p>
+        </div>
+        <div class="feature-item">
+          <h4>🔧 System Commands</h4>
+          <p>Execute system-level commands and automate routine tasks through voice or text commands.</p>
+        </div>
+        {% elif project.id == 2 %}
+        <div class="feature-item">
+          <h4>♟️ Complete Chess Engine</h4>
+          <p>Fully functional chess game with proper move validation, check/checkmate detection, and game state management.</p>
+        </div>
+        <div class="feature-item">
+          <h4>📜 Move History</h4>
+          <p>Comprehensive move tracking with ability to review and analyze previous moves throughout the game.</p>
+        </div>
+        <div class="feature-item">
+          <h4>🎯 Captured Pieces Panel</h4>
+          <p>Visual display of captured pieces for both players with organized layout and clear presentation.</p>
+        </div>
+        <div class="feature-item">
+          <h4>📱 Responsive Design</h4>
+          <p>Adaptive board scaling and fullscreen mode support for optimal gameplay experience across devices.</p>
+        </div>
+        {% elif project.id == 4 %}
+        <div class="feature-item">
+          <h4>🧠 Machine Learning</h4>
+          <p>Advanced ML algorithms including Naive Bayes and neural networks for accurate spam classification.</p>
+        </div>
+        <div class="feature-item">
+          <h4>📊 High Accuracy</h4>
+          <p>Optimized for high precision and recall rates with continuous model improvement and validation.</p>
+        </div>
+        <div class="feature-item">
+          <h4>🔍 Text Analysis</h4>
+          <p>Comprehensive natural language processing with feature extraction and text preprocessing.</p>
+        </div>
+        <div class="feature-item">
+          <h4>⚡ Real-time Processing</h4>
+          <p>Fast message classification with efficient algorithms for real-world application deployment.</p>
+        </div>
+        {% else %}
+        <div class="feature-item">
+          <h4>✨ Modern Design</h4>
+          <p>Clean, intuitive user interface designed for optimal user experience and engagement.</p>
+        </div>
+        <div class="feature-item">
+          <h4>🚀 High Performance</h4>
+          <p>Optimized code structure and efficient algorithms ensuring smooth performance across platforms.</p>
+        </div>
+        <div class="feature-item">
+          <h4>🔧 Robust Architecture</h4>
+          <p>Well-structured codebase with modular design principles for maintainability and scalability.</p>
+        </div>
+        <div class="feature-item">
+          <h4>📱 Cross-Platform</h4>
+          <p>Compatible across multiple platforms and devices with responsive design implementation.</p>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+
+    <!-- Navigation Links -->
+    <div class="navigation-links">
+      <a href="/projects" class="nav-link">
+        ← Back to Projects
+      </a>
+      <a href="/contact" class="nav-link">
+        Discuss This Project →
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="mailto:rudraksh@example.com">Email</a>
+        <a href="https://github.com/your-username" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/your-profile" target="_blank">LinkedIn</a>
+        <a href="/projects">Projects</a>
+      </div>
+      <p>&copy; 2025 Rudraksh Raval | Crafted with ❤️ and Flask</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      
+      mobileMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.toggle('active');
+      });
+      
+      const mobileLinks = document.querySelectorAll('.mobile-menu a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
