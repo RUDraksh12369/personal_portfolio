@@ -20,6 +20,3 @@ It showcases projects, technical skills, experience, and achievements in **Pytho
 - Game Development: **Unity (basic), Pygame**
 - AI/ML: Spam Detection AI, Stock Prediction Model
 - Tools: Git, Virtual Environments, REST APIs
-
-## Project Structure
-
